@@ -43,9 +43,10 @@
 		<jasypt.version>2.1.0</jasypt.version>
 		<swagger.fox.version>3.0.0</swagger.fox.version>
 		<xxl-job.version>2.3.0</xxl-job.version>
-		<docker.plugin.version>0.32.0</docker.plugin.version>
-		<docker.host>http://192.168.0.100:2375</docker.host>
-		<docker.registry>192.168.0.100</docker.registry>
+		<docker.plugin.version>0.38.1</docker.plugin.version>
+		<docker.host>http://192.168.99.101:2375</docker.host>
+		<docker.pullRegistry>00n8tsad.mirror.aliyuncs.com</docker.pullRegistry>
+		<docker.pushRegistry>192.168.99.101</docker.pushRegistry>
 		<docker.namespace>pig4cloud</docker.namespace>
 		<docker.username>username</docker.username>
 		<docker.password>password</docker.password>
@@ -172,6 +173,7 @@
 					</executions>
 				</plugin>
 				<plugin>
+					<!-- http://dmp.fabric8.io/ -->
 					<groupId>io.fabric8</groupId>
 					<artifactId>docker-maven-plugin</artifactId>
 					<version>${docker.plugin.version}</version>
@@ -179,7 +181,8 @@
 						<!-- Docker Remote Api-->
 						<dockerHost>${docker.host}</dockerHost>
 						<!-- Docker 镜像私服-->
-						<registry>${docker.registry}</registry>
+						<pullRegistry>${docker.pullRegistry}</pullRegistry>
+						<pushRegistry>${docker.pushRegistry}</pushRegistry>
 						<!-- 认证信息-->
 						<authConfig>
 							<push>
@@ -189,7 +192,6 @@
 						</authConfig>
 						<images>
 							<image>
-								<!-- 镜像名称： 172.17.0.111/library/pig-gateway:2.6.3-->
 								<name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
 								<build>
 									<dockerFile>${project.basedir}/Dockerfile</dockerFile>
@@ -197,6 +199,16 @@
 							</image>
 						</images>
 					</configuration>
+					<executions>
+						<execution>
+							<id>default</id>
+							<phase>install</phase>
+							<goals>
+								<goal>build</goal>
+								<goal>push</goal>
+							</goals>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>

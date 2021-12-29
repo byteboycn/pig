@@ -1,4 +1,4 @@
-FROM moxm/java:1.8-full
+FROM moxm/java:1.8
 
 RUN mkdir -p /pig-sentinel-dashboard
 
