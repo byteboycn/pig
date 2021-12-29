@@ -192,7 +192,7 @@
 						</authConfig>
 						<images>
 							<image>
-								<name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
+								<name>${docker.pushRegistry}/${docker.namespace}/${project.name}:${project.version}</name>
 								<build>
 									<dockerFile>${project.basedir}/Dockerfile</dockerFile>
 								</build>
